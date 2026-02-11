@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Enfermos" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -56,8 +56,8 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new {  inscripcion = item.Inscripcion  }) |
+                @Html.ActionLink("Delete", "DeleteRaw", new { inscripcion = item.Inscripcion })
             </td>
         </tr>
 }
