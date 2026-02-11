@@ -20,11 +20,17 @@ namespace MvcCoreEnfermosEF.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string especialidad, int incremento)
+        public async Task<IActionResult> Index(string especialidad, int incremento, string boton)
         {
             List<string> especialidades = await this.repo.GetEspecialidadesAsync();
             ViewData["ESPECIALIDADES"] = especialidades;
-            await this.repo.UpdateSalarioEspecialidadRawAsync(especialidad, incremento);
+            if (boton == "raw")
+            {
+                await this.repo.UpdateSalarioEspecialidadRawAsync(especialidad, incremento);
+            } else if (boton == "ef")
+            {
+                await this.repo.UpdateSalarioEspecialidadEFAsync(especialidad, incremento);
+            }
             List<Doctor> doctores = await this.repo.GetDoctoresEspecialidadAsync(especialidad);
             return View(doctores);
         }

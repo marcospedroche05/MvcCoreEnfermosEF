@@ -71,6 +71,19 @@ namespace MvcCoreEnfermosEF.Repositories
             var consulta = await this.context.Database.ExecuteSqlRawAsync(sql, pamEspe, pamIncr);
         }
 
+        public async Task UpdateSalarioEspecialidadEFAsync(string especialidad, int incremento)
+        {
+            var consulta = from datos in this.context.Doctores
+                           where datos.Especialidad == especialidad
+                           select datos;
+            List < Doctor > doctores = await consulta.ToListAsync();
+            foreach(Doctor doc in doctores)
+            {
+                doc.Salario += incremento;
+                await this.context.SaveChangesAsync();
+            }
+        }
+
         public async Task<List<Doctor>> GetDoctoresEspecialidadAsync(string especialidad)
         {
             using (DbCommand com =
